@@ -1,3 +1,4 @@
+import { aiService } from "../ai/ai.service";
 import {
   ChatRequestDto,
   ChatResponseDto,
@@ -7,15 +8,14 @@ export class ChatService {
   async generateResponse(
     payload: ChatRequestDto
   ): Promise<ChatResponseDto> {
+    const result =
+      await aiService.generateContent({
+        prompt: payload.message,
+      });
 
     return {
-      answer: `You asked: "${payload.message}".
-      
-This is currently a mock response.
-
-Gemini + RAG will be integrated soon.`,
+      answer: result.text,
     };
-
   }
 }
 
